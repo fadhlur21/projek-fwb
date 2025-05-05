@@ -13,7 +13,7 @@ Role:
 -User
 
 Fitur:
--
+-User harus login
 **Tabel-tabel database beserta field dan tipe datanya**
 
 1. **Tabel 1**
