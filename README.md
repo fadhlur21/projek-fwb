@@ -1,18 +1,22 @@
 **Sistem Booking Lapangan Olahraga**
 
 Nama: Muhammad Fadhlur Rahman
+
 NIM: D0223501
 
-Mata Kuliah: FWB
-Tahun: 2025
+Mata Kuliah FWB
+Tahun 2025
 
 **Role dan Fitur-fiturnya**
 
 Role:
+
 -Admin
+
 -User
 
 Fitur:
+
 -User harus login
 **Tabel-tabel database beserta field dan tipe datanya**
 
