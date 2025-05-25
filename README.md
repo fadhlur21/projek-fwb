@@ -29,7 +29,9 @@ Fitur:
 1. **Tabel 1**
 
 | Nama field | Tipe data | keterangan |
+
 | nama | String | ----- |
+
 | telepon | String |  |
 
 
