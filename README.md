@@ -17,7 +17,9 @@ Role:
 
 Fitur:
 
--User harus login
+-User bisa memilih lapangan yang ingin disewakan
+-Admin bisa melihat orderan dari user
+-Admin bisa menerima dan menolak pesanan user 
 **Tabel-tabel database beserta field dan tipe datanya**
 
 1. **Tabel 1**
