@@ -29,10 +29,9 @@ Fitur:
 1. **Tabel 1**
 
 | Nama field | Tipe data | keterangan |
-
-| nama       | String | ----- |
-
-| telepon    | String |  |
+| --- | --- | --- |
+| nama | String | nama pengguna yang memesan lapangan |
+| no. telepon | String | nomor telepon pengguna yang menjadi syarat untuk memesan |
 
 
    
