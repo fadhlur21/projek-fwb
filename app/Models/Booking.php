@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Booking extends Model
 {
     protected $fillable = [
-        'user_id',
+        'customer_id',
         'field_id',
         'tanggal_booking',
         'jam_mulai',

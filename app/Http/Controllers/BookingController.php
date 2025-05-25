@@ -16,6 +16,7 @@ class BookingController extends Controller
 
    
 
+
 public function store(Request $request)
 {
     $request->validate([
@@ -23,15 +24,17 @@ public function store(Request $request)
         'telepon' => 'required',
         'field_id' => 'required|exists:fields,id',
         'tanggal_booking' => 'required|date',
-        'jam_mulai' => 'required',
-        'jam_selesai' => 'required|after:jam_mulai',
+        'jam_mulai' => 'required|date_format:H:i',
+        'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
     ]);
 
+    // Simpan customer terlebih dahulu
     $customer = Customer::create([
         'nama' => $request->nama,
         'telepon' => $request->telepon,
     ]);
 
+    // Simpan booking dengan customer_id
     Booking::create([
         'customer_id' => $customer->id,
         'field_id' => $request->field_id,
@@ -44,7 +47,6 @@ public function store(Request $request)
     return redirect()->route('booking.create')->with('success', 'Booking berhasil dibuat');
 }
 
-    
 
-    
+
 }

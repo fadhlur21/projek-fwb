@@ -7,17 +7,25 @@ use Illuminate\Http\Request;
 class AdminBookingController extends Controller
 {
     public function index() {
-        $bookings = Booking::with('field')->latest()->get();
+        $bookings = Booking::with('field', 'customer')->latest()->get();
         return view('admin.bookings.index', compact('bookings'));
     }
 
-    public function approve($id) {
-        Booking::where('id', $id)->update(['status' => 'approved']);
-        return back()->with('success', 'booking disetujui');
-    }
+    public function approve($id)
+{
+    $booking = Booking::findOrFail($id);
+    $booking->status = 'approved';
+    $booking->save();
 
-    public function reject($id) {
-        Booking::where('id', $id)->update(['status' => 'rejected']);
-        return back()->with('success', 'booking ditolak');
-    }
+    return redirect()->route('admin.bookings.index')->with('success', 'Booking disetujui.');
+}
+
+public function reject($id)
+{
+    $booking = Booking::findOrFail($id);
+    $booking->status = 'rejected';
+    $booking->save();
+
+    return redirect()->route('admin.bookings.index')->with('success', 'Booking ditolak.');
+}
 }
