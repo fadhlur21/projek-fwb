@@ -30,9 +30,9 @@ Fitur:
 
 | Nama field | Tipe data | keterangan |
 
-| nama | String | ----- |
+| nama       | String | ----- |
 
-| telepon | String |  |
+| telepon    | String |  |
 
 
    
