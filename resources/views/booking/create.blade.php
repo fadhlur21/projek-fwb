@@ -1,76 +1,116 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="card shadow-sm">
-    <div class="card-header bg-primary text-white">
-        <h5 class="mb-0">Form Booking Lapangan</h5>
-    </div>
-    <div class="card-body">
+<style>
+    body {
+        background-color: #2e2e2e;
+        color: #f0f0f0;
+    }
 
-        @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
+    .card {
+        background-color: #3a3a3a;
+        border: 1px solid #444;
+    }
 
-        <form method="POST" action="{{ route('booking.store') }}">
-            @csrf
+    .form-control,
+    .form-select {
+        background-color: #4a4a4a;
+        color: #f0f0f0;
+        border: 1px solid #555;
+    }
 
-            <!-- Nama -->
-            <div class="mb-3">
-                <label for="nama" class="form-label">Nama</label>
-                <input type="text" class="form-control @error('nama') is-invalid @enderror" 
-                       id="nama" name="nama" value="{{ old('nama') }}" placeholder="Masukkan nama lengkap" required>
-                @error('nama') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
+    .form-control:focus,
+    .form-select:focus {
+        background-color: #505050;
+        color: #fff;
+        border-color: #777;
+        box-shadow: none;
+    }
 
-            <!-- Telepon -->
-            <div class="mb-3">
-                <label for="telepon" class="form-label">Telepon</label>
-                <input type="text" class="form-control @error('telepon') is-invalid @enderror" 
-                       id="telepon" name="telepon" value="{{ old('telepon') }}" placeholder="08xxxx..." required>
-                @error('telepon') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
+    label {
+        color: #f0f0f0;
+    }
 
-            <!-- Lapangan -->
-            <div class="mb-3">
-                <label for="field_id" class="form-label">Pilih Lapangan</label>
-                <select class="form-select @error('field_id') is-invalid @enderror" 
-                        id="field_id" name="field_id" required>
-                    <option value="">-- Pilih Lapangan --</option>
-                    @foreach($fields as $field)
-                        <option value="{{ $field->id }}" {{ old('field_id') == $field->id ? 'selected' : '' }}>
-                            {{ $field->nama_lapangan }} - {{ $field->tipe_lapangan }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('field_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
 
-            <!-- Tanggal -->
-            <div class="mb-3">
-                <label for="tanggal_booking" class="form-label">Tanggal Booking</label>
-                <input type="date" class="form-control @error('tanggal_booking') is-invalid @enderror" 
-                       id="tanggal_booking" name="tanggal_booking" value="{{ old('tanggal_booking') }}" required>
-                @error('tanggal_booking') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
+    .alert-success {
+        background-color: #28a745;
+        color: white;
+        border: none;
+    }
 
-            <!-- Jam Mulai -->
-            <div class="mb-3">
-                <label for="jam_mulai" class="form-label">Jam Mulai</label>
-                <input type="time" class="form-control @error('jam_mulai') is-invalid @enderror" 
-                       id="jam_mulai" name="jam_mulai" value="{{ old('jam_mulai') }}" required>
-                @error('jam_mulai') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
+    .text-danger {
+        font-size: 0.875rem;
+    }
+</style>
 
-            <!-- Jam Selesai -->
-            <div class="mb-3">
-                <label for="jam_selesai" class="form-label">Jam Selesai</label>
-                <input type="time" class="form-control @error('jam_selesai') is-invalid @enderror" 
-                       id="jam_selesai" name="jam_selesai" value="{{ old('jam_selesai') }}" required>
-                @error('jam_selesai') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
+<div class="container py-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">📅 Form Booking Lapangan</h5>
+        </div>
+        <div class="card-body">
 
-            <button type="submit" class="btn btn-primary">Kirim Booking</button>
-        </form>
+            @if(session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+
+            <form method="POST" action="{{ route('booking.store') }}">
+                @csrf
+
+                <!-- Nama -->
+                <div class="mb-3">
+                    <label for="nama" class="form-label">Nama</label>
+                    <input type="text" class="form-control" id="nama" name="nama" required>
+                    @error('nama') <div class="text-danger">{{ $message }}</div> @enderror
+                </div>
+
+                <!-- Telepon -->
+                <div class="mb-3">
+                    <label for="telepon" class="form-label">Telepon</label>
+                    <input type="text" class="form-control" id="telepon" name="telepon" required>
+                    @error('telepon') <div class="text-danger">{{ $message }}</div> @enderror
+                </div>
+
+                <!-- Lapangan -->
+                <div class="mb-3">
+                    <label for="field_id" class="form-label">Pilih Lapangan</label>
+                    <select class="form-select" id="field_id" name="field_id" required>
+                        <option value="">-- Pilih --</option>
+                        @foreach($fields as $field)
+                            <option value="{{ $field->id }}">{{ $field->nama_lapangan }} - {{ $field->tipe_lapangan }}</option>
+                        @endforeach
+                    </select>
+                    @error('field_id') <div class="text-danger">{{ $message }}</div> @enderror
+                </div>
+
+                <!-- Tanggal -->
+                <div class="mb-3">
+                    <label for="tanggal_booking" class="form-label">Tanggal Booking</label>
+                    <input type="date" class="form-control" id="tanggal_booking" name="tanggal_booking" required>
+                    @error('tanggal_booking') <div class="text-danger">{{ $message }}</div> @enderror
+                </div>
+
+                <!-- Jam Mulai -->
+                <div class="mb-3">
+                    <label for="jam_mulai" class="form-label">Jam Mulai</label>
+                    <input type="time" class="form-control" id="jam_mulai" name="jam_mulai" required>
+                    @error('jam_mulai') <div class="text-danger">{{ $message }}</div> @enderror
+                </div>
+
+                <!-- Jam Selesai -->
+                <div class="mb-3">
+                    <label for="jam_selesai" class="form-label">Jam Selesai</label>
+                    <input type="time" class="form-control" id="jam_selesai" name="jam_selesai" required>
+                    @error('jam_selesai') <div class="text-danger">{{ $message }}</div> @enderror
+                </div>
+
+                <button type="submit" class="btn btn-primary">Kirim Booking</button>
+            </form>
+        </div>
     </div>
 </div>
 @endsection
